@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : NetworkBehaviour
 {
     [SerializeField]
     private float _speed;
@@ -24,9 +25,11 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return;
         UpdateTargetDirection();
         RotateTowardsTarget();
         SetVelocity();
+
     }
     
     private void UpdateTargetDirection()

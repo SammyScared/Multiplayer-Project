@@ -10,26 +10,39 @@ public class EnemyAwareness : MonoBehaviour
     private float _playerAwarenessDistance;
 
     private Transform _player;
+    private bool _playerFound;
     // Start is called before the first frame update
 
     // Update is called once per frame
-    private void Awake()
+
+    private void Update()
     {
-        _player = FindObjectOfType<PlayerMovement>().transform;
-    }
-    void Update()
-    {
+  
+        if (!_playerFound)
+        {
+            FindPlayer();
+        }
+
+        if (_player == null)
+        {
+            AwareOfPlayer = false; 
+            return; 
+        }
 
         Vector2 enemyToPlayerVector = _player.position - transform.position;
         DirectionToPlayer = enemyToPlayerVector.normalized;
 
-        if (enemyToPlayerVector.magnitude <= _playerAwarenessDistance)
-        {
-            AwareOfPlayer = true;
-        }
-        else
-        {
-            AwareOfPlayer= false;
-        }
+
+        AwareOfPlayer = enemyToPlayerVector.magnitude <= _playerAwarenessDistance;
+    }
+    private void FindPlayer()
+    {
+        if (_player != null)
+            return;
+
+        PlayerMovement player = FindObjectOfType<PlayerMovement>();
+        if (player != null)
+            _player = player.transform;
     }
 }
+
