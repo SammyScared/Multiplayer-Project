@@ -1,47 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : NetworkBehaviour
 {
-    [SerializeField]
-    private GameObject _enemyPrefabs;
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private float minimumSpawnTime;
+    [SerializeField] private float maximumSpawnTime;
 
-    [SerializeField]
-    private float _minimumSpawnTime;
-
-    [SerializeField]
-    private float _maximumSpawnTime;
-
-    private float _timeUntilSpawn;
-    private bool _isReadyToSpawn;
+    private float timeUntilSpawn;
+    private bool isReadyToSpawn;
 
     // Start is called before the first frame update
+    void Start()
+    {
+        SetTimeUntilSpawn();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (!_isReadyToSpawn)
-        {
+        if (!IsServer)
             return;
-        }
 
-        _timeUntilSpawn -= Time.deltaTime;
-        
-        if(_timeUntilSpawn <= 0)
+        timeUntilSpawn -= Time.deltaTime;
+
+        if (timeUntilSpawn <= 0)
         {
-            Instantiate(_enemyPrefabs, transform.position, Quaternion.identity);
+            SpawnEnemy();
             SetTimeUntilSpawn();
         }
+    }
+    public void StartSpawn()
+    {
+        isReadyToSpawn = true;
     }
 
     private void SetTimeUntilSpawn()
     {
-        _timeUntilSpawn = Random.Range(_minimumSpawnTime, _maximumSpawnTime);
+        timeUntilSpawn = Random.Range(minimumSpawnTime, maximumSpawnTime);
     }
 
-    public void SetReadyToSpawn(bool ready)
+
+    private void SpawnEnemy()
     {
-        _isReadyToSpawn = ready;
+        GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        NetworkObject networkObject = enemy.GetComponent<NetworkObject>();
+        if (networkObject != null)
+            networkObject.Spawn();
     }
 }
+

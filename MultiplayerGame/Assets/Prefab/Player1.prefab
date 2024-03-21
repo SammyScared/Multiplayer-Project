@@ -501,8 +501,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4002e52aa83b97147859a3713a22697a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 6250230579433980396}
   bulletPrefab: {fileID: 4079245739629050804, guid: 901e94b18ffbbea498d694f004fbc3fb, type: 3}
+  firePoint: {fileID: 6250230579433980396}
   bulletForce: 20
 --- !u!58 &4770585593759823250
 CircleCollider2D:

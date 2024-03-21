@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameController : NetworkBehaviour
 {
+    [SerializeField] private List<EnemySpawner> enemySpawners = new List<EnemySpawner>();
     [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private EnemySpawner _enemySpawner1;
     [SerializeField] private EnemySpawner _enemySpawner2;
@@ -12,12 +14,20 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (IsServer && Input.GetKeyDown(KeyCode.Space))
         {
-            _enemySpawner.SetReadyToSpawn(true);
-            _enemySpawner1.SetReadyToSpawn(true);
-            _enemySpawner2.SetReadyToSpawn(true);
-            _enemySpawner3.SetReadyToSpawn(true);
+            StartEnemySpawn();
         }
     }
+    void StartEnemySpawn()
+    {
+        foreach (var spawner in enemySpawners)
+        {
+            if (spawner != null)
+            {
+                spawner.StartSpawn();
+            }
+        }
+    }
+
 }
