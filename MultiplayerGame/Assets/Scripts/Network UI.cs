@@ -11,9 +11,10 @@ public class NetworkUI : NetworkBehaviour
     [SerializeField] private Button hostButton;
     [SerializeField] private Button clientButton;
     [SerializeField] private TextMeshProUGUI playersCountText;
-    private NetworkVariable<int> playersNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone); 
-    
-
+    private NetworkVariable<int> playersNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone);
+    [SerializeField] private TextMeshProUGUI enemiesDestroyedText;
+    private NetworkVariable<int> enemiesDestroyed = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone);
+    [SerializeField] private AudioClip destroySound;
     private void Awake()
     {
         hostButton.onClick.AddListener(() =>
@@ -29,10 +30,19 @@ public class NetworkUI : NetworkBehaviour
     private void Update()
     {
         playersCountText.text = "Players: " + playersNum.Value.ToString();
+        enemiesDestroyedText.text = "Score: " + enemiesDestroyed.Value.ToString();
         if (!IsServer) return;
         playersNum.Value = NetworkManager.Singleton.ConnectedClients.Count;
 
-
+    }
+    [ServerRpc]
+    public void EnemyDestroyedServerRpc()
+    {
+            enemiesDestroyed.Value++;
+        if (destroySound != null)
+        {
+            AudioSource.PlayClipAtPoint(destroySound, transform.position);
+        }
     }
 }
 

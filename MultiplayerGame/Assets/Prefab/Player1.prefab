@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: -227585086343658790}
   m_Layer: 0
   m_Name: Player1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -501,9 +501,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4002e52aa83b97147859a3713a22697a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4079245739629050804, guid: 901e94b18ffbbea498d694f004fbc3fb, type: 3}
+  bulletPrefab: {fileID: 7039339303801605280, guid: ceb89243701d17341a9ae1dcddb20654, type: 3}
   firePoint: {fileID: 6250230579433980396}
   bulletForce: 20
+  shootSound: {fileID: 8300000, guid: d0b3d26dea49adf4c8e60f58dd95d6e3, type: 3}
 --- !u!58 &4770585593759823250
 CircleCollider2D:
   m_ObjectHideFlags: 0

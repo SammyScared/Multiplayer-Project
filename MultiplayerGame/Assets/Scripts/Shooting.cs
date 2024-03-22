@@ -8,7 +8,7 @@ public class Shooting : NetworkBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     public float bulletForce = 20f;
-
+    public AudioClip shootSound;
 
     // Update is called once per frame
     void Update()
@@ -29,6 +29,10 @@ public class Shooting : NetworkBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
         bullet.GetComponent<NetworkObject>().Spawn();
+        if (shootSound != null)
+        {
+            AudioSource.PlayClipAtPoint(shootSound, firePoint.position);
+        }
     }
 }
 

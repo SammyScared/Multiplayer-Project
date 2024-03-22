@@ -8,6 +8,7 @@ public class EnemySpawner : NetworkBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private float minimumSpawnTime;
     [SerializeField] private float maximumSpawnTime;
+    [SerializeField] private AudioClip spawnSound;
 
     private float timeUntilSpawn;
     private bool isReadyToSpawn;
@@ -23,6 +24,7 @@ public class EnemySpawner : NetworkBehaviour
     {
         if (!IsServer)
             return;
+
 
         timeUntilSpawn -= Time.deltaTime;
 
@@ -49,6 +51,10 @@ public class EnemySpawner : NetworkBehaviour
         NetworkObject networkObject = enemy.GetComponent<NetworkObject>();
         if (networkObject != null)
             networkObject.Spawn();
+        if (spawnSound != null)
+        {
+            AudioSource.PlayClipAtPoint(spawnSound, transform.position);
+        }
     }
 }
 

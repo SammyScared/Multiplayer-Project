@@ -95,9 +95,9 @@ GameObject:
   - component: {fileID: 9221137939808650844}
   - component: {fileID: 1496080925769582503}
   - component: {fileID: 6376107037427599396}
+  - component: {fileID: -2485180142793898255}
   - component: {fileID: 783119710272179001}
   - component: {fileID: -6977478469394987181}
-  - component: {fileID: -2485180142793898255}
   - component: {fileID: -2015849511222442438}
   m_Layer: 0
   m_Name: Enemy
@@ -161,7 +161,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8aedcc56dfb4a44a713a790644d8ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerAwarenessDistance: 100
+  _playerAwarenessDistance: 1000
+--- !u!114 &-2485180142793898255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820135391140297576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2455007481
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &783119710272179001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +196,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3
-  _rotationSpeed: 2000
+  _rotationSpeed: 20000
+  loseGameImage: {fileID: 0}
 --- !u!58 &-6977478469394987181
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -211,27 +233,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.45
---- !u!114 &-2485180142793898255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3820135391140297576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2455007481
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &-2015849511222442438
 MonoBehaviour:
   m_ObjectHideFlags: 0

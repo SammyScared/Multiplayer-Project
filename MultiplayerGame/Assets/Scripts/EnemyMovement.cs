@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-
-public class EnemyMovement : MonoBehaviour
+using System;
+using UnityEngine.UI;
+public class EnemyMovement : NetworkBehaviour
 {
     [SerializeField]
     private float _speed;
@@ -14,12 +15,14 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody2D _rb;
     private EnemyAwareness _playerAwareness;
     private Vector2 _targetDirection;
-
+    private GameController gameController;
+    
     // Start is called before the first frame update
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerAwareness = GetComponent<EnemyAwareness>();
+        gameController = FindObjectOfType<GameController>();
     }
 
     // Update is called once per frame
@@ -67,5 +70,13 @@ public class EnemyMovement : MonoBehaviour
             _rb.velocity = transform.up * _speed;
         }
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (IsServer && collision.gameObject.CompareTag("Player"))
+        {
+            gameController.EndGame();
+        }
     }
 }
